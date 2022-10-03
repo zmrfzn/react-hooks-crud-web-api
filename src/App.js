@@ -12,7 +12,8 @@ function App() {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/tutorials" className="navbar-brand">
-          React App
+          <img src="/react.png" alt="React logo" height="40"/>
+          <span className="pl-1">React App</span>
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
