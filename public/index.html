@@ -25,7 +25,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <script type="text/javascript">
-      ;window.NREUM||(NREUM={});NREUM.init={distributed_tracing:{enabled:true},privacy:{cookies_enabled:true},ajax:{deny_list:["bam.nr-data.net"]}};
+      ;window.NREUM||(NREUM={});NREUM.init={distributed_tracing:{enabled:true,cors_use_newrelic_header:true,cors_use_tracecontext_headers:true,allowed_origins:['http://ec2-13-113-119-185.ap-northeast-1.compute.amazonaws.com']},privacy:{cookies_enabled:true},ajax:{deny_list:["bam.nr-data.net"]}};
       
       ;NREUM.loader_config={accountID:"3622685",trustKey:"3622685",agentID:"601348952",licenseKey:"NRJS-f45c3a5bb77e6c2617a",applicationID:"601348952"}
       ;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"NRJS-f45c3a5bb77e6c2617a",applicationID:"601348952",sa:1}
