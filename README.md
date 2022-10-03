@@ -6,10 +6,6 @@ Build a React Hooks CRUD Application to consume Web API with Axios, display and 
 
 ![react-hooks-crud-axios-api-example](react-hooks-crud-axios-api-example.png)
 
-For instruction, please visit:
-> [React Hooks CRUD example with Axios and Web API](https://bezkoder.com/react-hooks-crud-axios-api/)
-
-
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
