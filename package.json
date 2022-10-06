@@ -16,7 +16,7 @@
   "scripts": {
     "start": "sh -ac '. .env.local; react-scripts start'",
     "start-prod": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "sh -ac '. .env; react-scripts build'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "serve": "^14.0.1"
   }
 }
