@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import TutorialDataService from "../services/TutorialService";
 
 function Published() {
@@ -8,6 +9,24 @@ function Published() {
     useEffect(() => {
         getAllPublishedTutorials();
     }, []);
+
+    const updatePublished = (tutorial,newStatus) => {
+        var data = {
+          id: tutorial.id,
+          title: tutorial.title,
+          description: tutorial.description,
+          published: newStatus
+        };
+    
+        TutorialDataService.update(tutorial.id, data)
+          .then(response => {
+            getAllPublishedTutorials()
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      };
 
     const getAllPublishedTutorials = () => {
         TutorialDataService.findAllPublished()
@@ -21,12 +40,13 @@ function Published() {
     }
     return (
         <div className="list row">
-            <div className="col-md-8">
-                <table className="table table-striped table-inverse table-responsive">
+            <div className="col-md-6">
+                <table className="table table-striped table-inverse table-responsive table-bordered">
                     <thead className="thead-inverse">
                         <tr>
                             <th>Title</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +55,17 @@ function Published() {
                                 <tr key={index}>
                                     <td>{tutorial.title}</td>
                                     <td>{tutorial.published ? 'Published' : 'Pending'}</td>
+                                    <td>
+                                        <Link to={`/tutorials/${tutorial.id}`}><span className="Link">Edit</span></Link> | 
+                                        <button
+                                            className="badge badge-danger mr-2"
+                                            onClick={() => updatePublished(tutorial, false)}
+                                        >
+                                            UnPublish
+                                        </button>
+                                    </td>
                                 </tr>
+
                             ))}
                     </tbody>
                 </table>

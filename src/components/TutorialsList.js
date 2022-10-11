@@ -46,6 +46,7 @@ const TutorialsList = () => {
         refreshList();
       })
       .catch(e => {
+        alert(`Failure:${e}`)
         console.log(e);
       });
   };

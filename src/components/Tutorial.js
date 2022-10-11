@@ -36,17 +36,17 @@ const Tutorial = props => {
     setCurrentTutorial({ ...currentTutorial, [name]: value });
   };
 
-  const updatePublished = status => {
+  const updatePublished = (tutorial,newStatus) => {
     var data = {
-      id: currentTutorial.id,
-      title: currentTutorial.title,
-      description: currentTutorial.description,
-      published: status
+      id: tutorial.id,
+      title: tutorial.title,
+      description: tutorial.description,
+      published: newStatus
     };
 
-    TutorialDataService.update(currentTutorial.id, data)
+    TutorialDataService.update(tutorial.id, data)
       .then(response => {
-        setCurrentTutorial({ ...currentTutorial, published: status });
+        setCurrentTutorial({ ...tutorial, published: newStatus });
         console.log(response.data);
       })
       .catch(e => {
@@ -116,14 +116,14 @@ const Tutorial = props => {
           {currentTutorial.published ? (
             <button
               className="badge badge-primary mr-2"
-              onClick={() => updatePublished(false)}
+              onClick={() => updatePublished(currentTutorial,false)}
             >
               UnPublish
             </button>
           ) : (
             <button
               className="badge badge-primary mr-2"
-              onClick={() => updatePublished(true)}
+              onClick={() => updatePublished(currentTutorial,true)}
             >
               Publish
             </button>
