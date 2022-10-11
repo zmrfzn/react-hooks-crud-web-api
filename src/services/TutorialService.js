@@ -28,6 +28,10 @@ const findByTitle = title => {
   return http.get(`/tutorials?title=${title}`);
 };
 
+const findAllPublished = () => {
+  return http.get(`/tutorials/published`)
+}
+
 const TutorialService = {
   getAll,
   get,
@@ -35,7 +39,8 @@ const TutorialService = {
   update,
   remove,
   removeAll,
-  findByTitle
+  findByTitle,
+  findAllPublished
 };
 
 export default TutorialService;

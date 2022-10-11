@@ -6,6 +6,7 @@ import "./App.css";
 import AddTutorial from "./components/AddTutorial";
 import Tutorial from "./components/Tutorial";
 import TutorialsList from "./components/TutorialsList";
+import Published from "./components/Published";
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
               Add
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to={"/published"} className="nav-link">
+              Published Tutorials
+            </Link>
+          </li>
         </div>
       </nav>
 
@@ -33,6 +39,7 @@ function App() {
         <Routes>
           <Route path="/" element={<TutorialsList/>} />
           <Route path="/tutorials" element={<TutorialsList/>} />
+          <Route path="/published" element={<Published/>} />
           <Route path="/add" element={<AddTutorial/>} />
           <Route path="/tutorials/:id" element={<Tutorial/>} />
         </Routes>
