@@ -3,6 +3,8 @@ import TutorialDataService from "../services/TutorialService";
 import { Link } from "react-router-dom";
 
 const TutorialsList = () => {
+  window.newrelic.setPageViewName('Tutorials');
+
   const [tutorials, setTutorials] = useState([]);
   const [currentTutorial, setCurrentTutorial] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);

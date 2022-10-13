@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import TutorialDataService from "../services/TutorialService";
 
 const Tutorial = props => {
+  window.newrelic.setPageViewName('Tutorial->View');
+
   const { id }= useParams();
   let navigate = useNavigate();
 
@@ -27,8 +29,12 @@ const Tutorial = props => {
   };
 
   useEffect(() => {
-    if (id)
+    if (id) {
+
+      window.newrelic.setPageViewName('Tutorial->Edit');
+      
       getTutorial(id);
+    }
   }, [id]);
 
   const handleInputChange = event => {

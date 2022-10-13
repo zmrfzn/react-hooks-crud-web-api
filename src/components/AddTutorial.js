@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TutorialDataService from "../services/TutorialService";
 
 const AddTutorial = () => {
+  window.newrelic.setPageViewName('Add New');
+
   const initialTutorialState = {
     id: null,
     title: "",

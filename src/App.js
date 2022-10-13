@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, {useEffect} from "react";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -9,6 +9,16 @@ import TutorialsList from "./components/TutorialsList";
 import Published from "./components/Published";
 
 function App() {
+
+  window.newrelic.setPageViewName('Home');
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(`Entered anon -> ${window.newrelic}`)
+    window.newrelic.addPageAction('navigation',{path:location.pathname})
+  }, [location]);
+
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
