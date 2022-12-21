@@ -54,7 +54,7 @@ function App() {
         </div>
       </nav>
 
-      <div className="container mt-3">
+      <div className="container-fluid mt-3">
         <Routes>
           <Route path="/" element={<TutorialsList />} />
           <Route path="/tutorials" element={<TutorialsList />} />

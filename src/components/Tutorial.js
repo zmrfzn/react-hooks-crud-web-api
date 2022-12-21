@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import TutorialDataService from "../services/TutorialService";
+import { Chip } from 'primereact/chip';
 
 const Tutorial = props => {
   window.newrelic.setPageViewName('Tutorial->View');
@@ -115,33 +116,37 @@ const Tutorial = props => {
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentTutorial.published ? "Published" : "Pending"}
+              {currentTutorial.published ?
+                <Chip label="Published" className="mr-2 mb-2 custom-chip published" />
+                :
+                <Chip label="Pending" className="mr-2 mb-2 custom-chip pending" />
+                 }
             </div>
           </form>
 
           {currentTutorial.published ? (
             <button
-              className="badge badge-primary mr-2"
+              className="btn btn-primary mr-2"
               onClick={() => updatePublished(currentTutorial,false)}
             >
               UnPublish
             </button>
           ) : (
             <button
-              className="badge badge-primary mr-2"
+              className="btn btn-primary mr-2"
               onClick={() => updatePublished(currentTutorial,true)}
             >
               Publish
             </button>
           )}
 
-          <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
+          <button className="btn btn-danger mr-2" onClick={deleteTutorial}>
             Delete
           </button>
 
           <button
             type="submit"
-            className="badge badge-success"
+            className="btn btn-success"
             onClick={updateTutorial}
           >
             Update
