@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TutorialDataService from "../services/TutorialService";
 import { Link } from "react-router-dom";
 import { Paginator } from 'primereact/paginator';
@@ -6,9 +6,9 @@ import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
 import { Divider } from 'primereact/divider';
 
-import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
-import "primereact/resources/primereact.min.css";                  //core css
-import "primeicons/primeicons.css";  
+import { Toast } from 'primereact/toast';
+
+
 
 const TutorialsList = () => {
   window.newrelic.setPageViewName('Tutorials');
@@ -23,6 +23,7 @@ const TutorialsList = () => {
   const [pageStart, setPageStart] = useState(0);
   const [pageSize, setPageSize] = useState(5);
 
+  const toast = useRef(null)
   const onBasicPageChange = (event) => {
       console.log('here',new Date());
       // console.log(pagedTutorials.length)
@@ -76,8 +77,8 @@ const TutorialsList = () => {
         refreshList();
       })
       .catch(e => {
-        alert(`Failure:${e}`)
         console.log(e);
+        showError(e.message)
       });
   };
 
@@ -92,8 +93,13 @@ const TutorialsList = () => {
       });
   };
 
+  const showError = (msg) => {
+    toast.current.show({severity:'error', summary: 'Error', detail:msg, life: 3000});
+}
+
   return (
     <div className="mx-auto">
+    <Toast ref={toast} position="bottom-center"/>
       <div class="row">
         <div className="col-md-5">
           <div className="input-group mb-3">
@@ -171,7 +177,7 @@ const TutorialsList = () => {
               </div>
               <Link
                 to={"/tutorials/" + currentTutorial.id}
-                className="badge badge-warning"
+                className="btn btn-info"
               >
                 Edit
               </Link>

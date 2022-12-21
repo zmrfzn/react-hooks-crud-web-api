@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import TutorialDataService from "../services/TutorialService";
 import { Chip } from 'primereact/chip';
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 
+import { Toast } from 'primereact/toast';
+ 
 const Tutorial = props => {
+  const toast = useRef(null);
   window.newrelic.setPageViewName('Tutorial->View');
 
   const { id }= useParams();
@@ -18,6 +22,10 @@ const Tutorial = props => {
   const [currentTutorial, setCurrentTutorial] = useState(initialTutorialState);
   const [message, setMessage] = useState("");
 
+
+  const showSuccess = (msg) => {
+    toast.current.show({severity:'success', summary: 'Success Message', detail:msg, life: 3000});
+}
   const getTutorial = id => {
     TutorialDataService.get(id)
       .then(response => {
@@ -66,6 +74,7 @@ const Tutorial = props => {
       .then(response => {
         console.log(response.data);
         setMessage("The tutorial was updated successfully!");
+        showSuccess("The tutorial was updated successfully!")
       })
       .catch(e => {
         console.log(e);
@@ -85,6 +94,8 @@ const Tutorial = props => {
 
   return (
     <div>
+    <Toast ref={toast} position="bottom-center"/>
+
       {currentTutorial ? (
         <div className="edit-form">
           <h4>Tutorial</h4>
@@ -126,30 +137,34 @@ const Tutorial = props => {
 
           {currentTutorial.published ? (
             <button
-              className="btn btn-primary mr-2"
+              className="btn btn-success mr-2"
               onClick={() => updatePublished(currentTutorial,false)}
             >
               UnPublish
             </button>
           ) : (
             <button
-              className="btn btn-primary mr-2"
+              className="btn btn-success mr-2"
               onClick={() => updatePublished(currentTutorial,true)}
             >
               Publish
             </button>
           )}
 
-          <button className="btn btn-danger mr-2" onClick={deleteTutorial}>
-            Delete
-          </button>
-
           <button
             type="submit"
-            className="btn btn-success"
+            className="btn btn-primary mr-2"
             onClick={updateTutorial}
           >
             Update
+          </button>
+          <button className="btn btn-danger" onClick={deleteTutorial}>
+            Delete
+          </button>
+          <button className="btn btn-outline-secondary btn-block mt-2">
+          <Link to={"/"} className="nav-link">
+              cancel
+            </Link> 
           </button>
           <p>{message}</p>
         </div>

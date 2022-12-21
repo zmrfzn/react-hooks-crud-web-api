@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
+
+//stylesheets
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
+import "primereact/resources/primereact.min.css";                  //core css
+import "primeicons/primeicons.css";  
 
 import AddTutorial from "./components/AddTutorial";
 import Tutorial from "./components/Tutorial";
