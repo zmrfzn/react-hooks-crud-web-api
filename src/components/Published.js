@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import TutorialDataService from "../services/TutorialService";
 
 function Published() {
-    window.newrelic.setPageViewName('Published');
+    // window.newrelic.setPageViewName('Published');
 
     const [tutorials, setTutorials] = useState(null);
 

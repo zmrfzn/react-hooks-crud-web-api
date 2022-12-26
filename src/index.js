@@ -8,7 +8,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import packageJSON from './../package.json'
 
-window.newrelic.addRelease('App Version',packageJSON.version);
+// window.newrelic.addRelease('App Version',packageJSON.version);
 
 ReactDOM.render(
   <BrowserRouter>

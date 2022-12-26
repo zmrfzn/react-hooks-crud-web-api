@@ -11,7 +11,7 @@ import { Toast } from 'primereact/toast';
 
 
 const TutorialsList = () => {
-  window.newrelic.setPageViewName('Tutorials');
+  // window.newrelic.setPageViewName('Tutorials');
 
   const [tutorials, setTutorials] = useState([]);
   const [pagedTutorials, setPagedTutorials] = useState([]);

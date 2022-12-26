@@ -8,7 +8,7 @@ import { Toast } from 'primereact/toast';
  
 const Tutorial = props => {
   const toast = useRef(null);
-  window.newrelic.setPageViewName('Tutorial->View');
+  // window.newrelic.setPageViewName('Tutorial->View');
 
   const { id }= useParams();
   let navigate = useNavigate();
@@ -40,7 +40,7 @@ const Tutorial = props => {
   useEffect(() => {
     if (id) {
 
-      window.newrelic.setPageViewName('Tutorial->Edit');
+      // window.newrelic.setPageViewName('Tutorial->Edit');
       
       getTutorial(id);
     }
