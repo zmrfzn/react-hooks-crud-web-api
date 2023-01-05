@@ -100,7 +100,7 @@ const TutorialsList = () => {
   return (
     <div className="mx-auto">
     <Toast ref={toast} position="bottom-center"/>
-      <div class="row">
+      <div className="row">
         <div className="col-md-5">
           <div className="input-group mb-3">
             <input
@@ -122,7 +122,7 @@ const TutorialsList = () => {
           </div>
         </div>
       </div>
-      <div class="row">
+      <div className="row">
         <div className="col-md-5">
           <h4>Tutorials List</h4>
           <ul className="list-group">

@@ -15,12 +15,12 @@ import Published from "./components/Published";
 
 function App() {
 
-  try {
-    throw new Error('error custom');
-  } catch (error) {
-    console.log(error)
+  // try {
+  //   throw new Error('error custom');
+  // } catch (error) {
+  //   console.error(error)
 
-  }
+  // }
 
 
   // window.newrelic.setPageViewName('Home');

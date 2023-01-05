@@ -8,8 +8,12 @@ import * as serviceWorker from "./serviceWorker";
 
 import packageJSON from './../package.json'
 
+// OTEL
+import { startOtelInstrumentation } from './opentelemetry';
+
 // window.newrelic.addRelease('App Version',packageJSON.version);
 
+startOtelInstrumentation();
 ReactDOM.render(
   <BrowserRouter>
     <App />
@@ -18,3 +22,4 @@ ReactDOM.render(
 );
 
 serviceWorker.unregister();
+
