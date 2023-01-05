@@ -28,6 +28,7 @@
     "start": "sh -ac '. .env.local; react-scripts start'",
     "start-prod": "react-scripts start",
     "build": "sh -ac '. .env; react-scripts build'",
+    "build-otel": "sh -ac '. .env.otel; react-scripts build'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -52,7 +52,7 @@ const startOtelInstrumentation = () => {
         new UserInteractionInstrumentation(),
         new XMLHttpRequestInstrumentation({
             ignoreUrls:['/localhost:8081/sockjs-node'],
-            propagateTraceHeaderCorsUrls:['http://localhost:8080']
+            propagateTraceHeaderCorsUrls:['http://localhost:8080','http://3.230.230.121']
         })
       ],
     });

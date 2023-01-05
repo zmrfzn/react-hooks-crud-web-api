@@ -5,7 +5,7 @@ receivers:
       http:
         cors:
           allowed_origins: 
-            - http://localhost:8081/
+            - http://localhost:8081
         #     # Origins can have wildcards with *, use * by itself to match any origin.
         #     # - https://*.example.com
         # headers:
