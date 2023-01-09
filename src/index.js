@@ -16,8 +16,8 @@ const OTEL_NR_ENDPOINT = 'https://otlp.nr-data.net:4318/v1/traces'
 
 // window.newrelic.addRelease('App Version',packageJSON.version);
 
-// startOtelInstrumentation();
-autoOtelTracer(OTEL_NR_ENDPOINT);
+startOtelInstrumentation();
+// autoOtelTracer(OTEL_NR_ENDPOINT);
 
 ReactDOM.render(
   <BrowserRouter>

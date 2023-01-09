@@ -4,8 +4,13 @@ import { ZoneContextManager } from '@opentelemetry/context-zone';
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
 
+import {
+  CompositePropagator,
+  W3CBaggagePropagator,
+  W3CTraceContextPropagator,
+} from "@opentelemetry/core";
 
-
+import { B3Propagator } from '@opentelemetry/propagator-b3'
 
 // import { DocumentLoadInstrumentation } from '@opentelemetry/instrumentation-document-load';
 // import { UserInteractionInstrumentation } from '@opentelemetry/instrumentation-user-interaction'
@@ -41,7 +46,14 @@ provider.addSpanProcessor(new SimpleSpanProcessor(new OTLPTraceExporter({
 
 provider.register({
   // Changing default contextManager to use ZoneContextManager - supports asynchronous operations - optional
-  contextManager: new ZoneContextManager()
+  contextManager: new ZoneContextManager(),
+  propagator: new CompositePropagator({
+    propagators: [
+      new W3CBaggagePropagator(),
+      new W3CTraceContextPropagator(),
+      new B3Propagator()
+    ],
+  }),
 
 });
 
