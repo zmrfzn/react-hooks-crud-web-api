@@ -4,12 +4,15 @@ import { ZoneContextManager } from '@opentelemetry/context-zone';
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
 
-import { B3Propagator } from '@opentelemetry/propagator-b3';
 
 
-import { DocumentLoadInstrumentation } from '@opentelemetry/instrumentation-document-load';
-import { UserInteractionInstrumentation } from '@opentelemetry/instrumentation-user-interaction'
-import { XMLHttpRequestInstrumentation } from '@opentelemetry/instrumentation-xml-http-request';
+
+// import { DocumentLoadInstrumentation } from '@opentelemetry/instrumentation-document-load';
+// import { UserInteractionInstrumentation } from '@opentelemetry/instrumentation-user-interaction'
+// import { XMLHttpRequestInstrumentation } from '@opentelemetry/instrumentation-xml-http-request';
+import { getWebAutoInstrumentations } from "@opentelemetry/auto-instrumentations-web";
+
+
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 
 //exporters
@@ -46,16 +49,37 @@ provider.register({
 const startOtelInstrumentation = () => {
     console.error(`Registering Otel ${new Date().getMilliseconds()}`)
     // Registering instrumentations
-    registerInstrumentations({
-      instrumentations: [
-        new DocumentLoadInstrumentation(),
-        new UserInteractionInstrumentation(),
-        new XMLHttpRequestInstrumentation({
-            ignoreUrls:['/localhost:8081/sockjs-node'],
-            propagateTraceHeaderCorsUrls:['http://localhost:8080','http://3.230.230.121']
-        })
-      ],
-    });
+      registerInstrumentations({
+    instrumentations: [
+      getWebAutoInstrumentations({
+        // load custom configuration for xml-http-request instrumentation
+        '@opentelemetry/instrumentation-xml-http-request': {
+ignoreUrls:['/localhost:8081/sockjs-node'],
+            propagateTraceHeaderCorsUrls:
+            [
+            'http://localhost:8080',
+            'http://3.230.230.121'
+            ]
+        },
+        // load custom configuration for fetch instrumentation
+        '@opentelemetry/instrumentation-fetch': {
+          propagateTraceHeaderCorsUrls: [
+              /.+/g,
+            ],
+        },
+      }),
+    ],
+   })
+    // registerInstrumentations({
+    //   instrumentations: [
+    //     new DocumentLoadInstrumentation(),
+    //     new UserInteractionInstrumentation(),
+    //     new XMLHttpRequestInstrumentation({
+    //         ignoreUrls:['/localhost:8081/sockjs-node'],
+    //         propagateTraceHeaderCorsUrls:['http://localhost:8080','http://3.230.230.121']
+    //     })
+    //   ],
+    // });
 }
 
 export {
