@@ -1,4 +1,22 @@
 import http from "../http-common";
+import * as otelAPI from "@opentelemetry/api";
+
+// const otel = new otelAPI();
+function traceParentIDGenerator() {
+  if ( typeof(otelAPI) !== "undefined" && otelAPI !== null ) {
+    let current_span = otelAPI.trace.getSpan(otelAPI.context.active());
+
+    let trace_id = current_span.spanContext().traceId;
+    let span_id = current_span.spanContext().spanId;
+    let trace_flags = current_span.spanContext().traceFlags;
+
+    return `00-${trace_id}-${span_id}-${trace_flags}`;
+  } else {
+    return `00-ab42124a3c573678d4d8b21ba52df3bf-d21f7bc17caa5aba-01`;
+  }
+}
+
+{/* <meta name="traceparent" content="00-ab42124a3c573678d4d8b21ba52df3bf-d21f7bc17caa5aba-01"></meta> */}
 
 const getAll = () => {
   return http.get("/tutorials");
