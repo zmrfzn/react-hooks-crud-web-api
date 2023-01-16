@@ -33,6 +33,7 @@ const Tutorial = props => {
         console.log(response.data);
       })
       .catch(e => {
+        navigate(`/404/${id}`)
         console.log(e);
       });
   };

@@ -12,6 +12,7 @@ import AddTutorial from "./components/AddTutorial";
 import Tutorial from "./components/Tutorial";
 import TutorialsList from "./components/TutorialsList";
 import Published from "./components/Published";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
 
@@ -36,7 +37,7 @@ function App() {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/tutorials" className="navbar-brand">
+        <a href="/" className="navbar-brand">
           <img src="/react.png" alt="React logo" height="40" />
           <span className="pl-1">React App</span>
         </a>
@@ -66,6 +67,8 @@ function App() {
           <Route path="/published" element={<Published />} />
           <Route path="/add" element={<AddTutorial />} />
           <Route path="/tutorials/:id" element={<Tutorial />} />
+          <Route path="*" element={<PageNotFound />}/>
+          <Route path="/404/:id" element={<PageNotFound />}/>
         </Routes>
       </div>
     </div>

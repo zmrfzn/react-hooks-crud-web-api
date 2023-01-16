@@ -30,6 +30,7 @@
     "start-prod": "react-scripts start",
     "build": "sh -ac '. .env; react-scripts build'",
     "build-otel": "sh -ac '. .env.otel; react-scripts build'",
+    "build-express": "sh -ac '. .env.local; react-scripts build'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

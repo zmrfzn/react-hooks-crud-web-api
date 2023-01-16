@@ -143,7 +143,7 @@ const TutorialsList = () => {
             first={pageStart}
             rows={pageSize}
             totalRecords={tutorials.length}
-            rowsPerPageOptions={[5, 10]}
+            rowsPerPageOptions={tutorials.length > 15 ? [5, 10,15,20] :[5,10]}
             onPageChange={onBasicPageChange}
           ></Paginator>
           <button
