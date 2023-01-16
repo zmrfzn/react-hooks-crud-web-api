@@ -26,11 +26,11 @@
     "react-scripts": "4.0.3"
   },
   "scripts": {
-    "start": "sh -ac '. .env.local; react-scripts start'",
+    "start": "env-cmd -f ./.env.local react-scripts start",
     "start-prod": "react-scripts start",
     "build": "sh -ac '. .env; react-scripts build'",
-    "build-otel": "sh -ac '. .env.otel; react-scripts build'",
-    "build-express": "sh -ac '. .env.local; react-scripts build'",
+    "build-otel": "env-cmd -f ./.env.otel react-scripts build",
+    "build-express": "sh -ac  ./.env.local react-scripts build'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "serve": "^14.0.1"
   }
 }
