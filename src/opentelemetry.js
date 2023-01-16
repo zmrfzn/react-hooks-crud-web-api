@@ -25,7 +25,6 @@ import {
 } from "@opentelemetry/sdk-trace-base";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
-
 const startOtelInstrumentation = () => {
   const providerConfig = {
     resource: new Resource({
@@ -85,7 +84,6 @@ const startOtelInstrumentation = () => {
   registerInstrumentations({
     instrumentations: [
       new DocumentLoadInstrumentation(),
-      new UserInteractionInstrumentation(),
       new XMLHttpRequestInstrumentation({
         ignoreUrls: ["/localhost:8081/sockjs-node"],
         clearTimingResources: true,
