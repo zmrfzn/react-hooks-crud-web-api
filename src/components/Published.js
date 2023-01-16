@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import TutorialDataService from "../services/TutorialService";
+import mapCategories from '../services/Util';
 
 function Published() {
     window.newrelic.setPageViewName('Published');
@@ -29,10 +30,11 @@ function Published() {
           });
       };
 
-    const getAllPublishedTutorials = () => {
+    const getAllPublishedTutorials = async () => {
+
         TutorialDataService.findAllPublished()
             .then((response) => {
-                setTutorials(response.data);
+                mapCategories(response.data).then(d => setTutorials(d));
                 console.log(`data : ${JSON.stringify(response.data)}`)
             })
             .catch((err) => {
@@ -41,11 +43,12 @@ function Published() {
     }
     return (
         <div className="list row">
-            <div className="col-md-6">
-                <table className="table table-striped table-inverse table-responsive table-bordered">
-                    <thead className="thead-inverse">
+            <div className="table-responsive">
+                <table className="table table-inverse table-responsive table-bordered">
+                    <thead className="thead-inverse thead-dark ">
                         <tr>
                             <th>Title</th>
+                            <th>Category</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -55,11 +58,12 @@ function Published() {
                             tutorials.map((tutorial, index) => (
                                 <tr key={index}>
                                     <td>{tutorial.title}</td>
+                                    <td>{tutorial.category}</td>
                                     <td>{tutorial.published ? 'Published' : 'Pending'}</td>
                                     <td>
-                                        <Link to={`/tutorials/${tutorial.id}`}><span className="Link">Edit</span></Link> | 
+                                        <Link to={`/tutorials/${tutorial.id}`}><span className="btn btn-outline-info btn-link mr-1">Edit</span></Link> 
                                         <button
-                                            className="badge badge-danger mr-2"
+                                            className="btn btn-warning mr-2 mt-auto"
                                             onClick={() => updatePublished(tutorial, false)}
                                         >
                                             UnPublish

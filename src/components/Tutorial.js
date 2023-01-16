@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import TutorialDataService from "../services/TutorialService";
 import { Chip } from 'primereact/chip';
 import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Dropdown } from 'primereact/dropdown';
 
 import { Toast } from 'primereact/toast';
  
@@ -16,33 +17,44 @@ const Tutorial = props => {
   const initialTutorialState = {
     id: null,
     title: "",
+    category: -1,
     description: "",
     published: false
   };
   const [currentTutorial, setCurrentTutorial] = useState(initialTutorialState);
   const [message, setMessage] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setselectedCategory] = useState(null);
 
 
   const showSuccess = (msg) => {
     toast.current.show({severity:'success', summary: 'Success Message', detail:msg, life: 3000});
 }
-  const getTutorial = id => {
+  const getTutorial = (id,categories) => {
     TutorialDataService.get(id)
       .then(response => {
         setCurrentTutorial(response.data);
+        setselectedCategory(categories.find(c => c.id == response.data.category))
         console.log(response.data);
+        console.log(`selected category: ${categories}`);
       })
       .catch(e => {
+        navigate(`/404/${id}`)
         console.log(e);
       });
   };
+  const getCategories = async() => {
+    const categories = await TutorialDataService.getCategories();
+    setCategories(categories);
+    console.log("categories set", categories);
+
+    getTutorial(id,categories);
+  }
 
   useEffect(() => {
     if (id) {
-
-      window.newrelic.setPageViewName('Tutorial->Edit');
-      
-      getTutorial(id);
+    getCategories();
+      window.newrelic.setPageViewName("Tutorial->Edit");
     }
   }, [id]);
 
@@ -50,6 +62,11 @@ const Tutorial = props => {
     const { name, value } = event.target;
     setCurrentTutorial({ ...currentTutorial, [name]: value });
   };
+
+  const onCategoryChange = (event) => {
+    setselectedCategory(event.value);
+    setCurrentTutorial({...currentTutorial, 'category':event.value.id})
+  }
 
   const updatePublished = (tutorial,newStatus) => {
     var data = {
@@ -112,6 +129,10 @@ const Tutorial = props => {
               />
             </div>
             <div className="form-group">
+            <Dropdown value={selectedCategory} options={categories} onChange={onCategoryChange} optionLabel="category" name="category" placeholder="Category" />
+
+            </div>
+            <div className="form-group">
               <label htmlFor="description">Description</label>
               <input
                 type="text"
@@ -137,7 +158,7 @@ const Tutorial = props => {
 
           {currentTutorial.published ? (
             <button
-              className="btn btn-success mr-2"
+              className="btn btn-warning mr-2"
               onClick={() => updatePublished(currentTutorial,false)}
             >
               UnPublish

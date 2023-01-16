@@ -7,6 +7,7 @@ import { Chip } from 'primereact/chip';
 import { Divider } from 'primereact/divider';
 
 import { Toast } from 'primereact/toast';
+import mapCategories from "../services/Util";
 
 
 
@@ -33,10 +34,12 @@ const TutorialsList = () => {
       setPageStart(event.first);
       setPageSize(event.rows);
       console.log(pageSize)
+      resetSelectedItem();
       setPagedTutorials(tutorials.slice(event.first,event.first+event.rows))
   };
 
   useEffect(() => {
+    TutorialDataService.getCategories();
     retrieveTutorials();
     console.log('useEffect()');
        // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,19 +53,25 @@ const TutorialsList = () => {
   const retrieveTutorials = () => {
     TutorialDataService.getAll()
       .then(response => {
-        setPagedTutorials(response.data.slice(pageStart,pageSize))
-        setTutorials(response.data);
-        console.log('lenght',tutorials.length);
+        mapCategories(response.data).then(data => {
+          setPagedTutorials(data.slice(pageStart,pageSize))
+          setTutorials(data);
+          console.log('length',tutorials.length);
+        })
       })
       .catch(e => {
         console.log(e);
       })
   };
 
-  const refreshList = () => {
-    retrieveTutorials();
+  const resetSelectedItem = () => {
     setCurrentTutorial(null);
     setCurrentIndex(-1);
+  }
+
+  const refreshList = () => {
+    retrieveTutorials();
+    resetSelectedItem();
   };
 
   const setActiveTutorial = (tutorial, index) => {
@@ -100,7 +109,7 @@ const TutorialsList = () => {
   return (
     <div className="mx-auto">
     <Toast ref={toast} position="bottom-center"/>
-      <div class="row">
+      <div className="row">
         <div className="col-md-5">
           <div className="input-group mb-3">
             <input
@@ -122,7 +131,7 @@ const TutorialsList = () => {
           </div>
         </div>
       </div>
-      <div class="row">
+      <div className="row">
         <div className="col-md-5">
           <h4>Tutorials List</h4>
           <ul className="list-group">
@@ -143,7 +152,7 @@ const TutorialsList = () => {
             first={pageStart}
             rows={pageSize}
             totalRecords={tutorials.length}
-            rowsPerPageOptions={[5, 10]}
+            rowsPerPageOptions={tutorials.length > 15 ? [5, 10,15,20] :[5,10]}
             onPageChange={onBasicPageChange}
           ></Paginator>
           <button
@@ -165,6 +174,12 @@ const TutorialsList = () => {
                 </label>{" "}
                 {currentTutorial.description}
               </p>
+              <div>
+              <label>
+                  <strong>Category:</strong>
+                </label>{" "}
+                {currentTutorial.category}
+              </div>
               <div>
                 <label>
                   <strong>Status:</strong>
