@@ -45,7 +45,7 @@ const startOtelInstrumentation = () => {
       new OTLPTraceExporter({
         url: "https://otlp.nr-data.net:4318/v1/traces",
         headers: {
-          "api-key": "f5644626eef13f26d27746c6e381555ef9f9NRAL",
+          "api-key": `${process.env.NR_LICENSE}`,
         },
       }),
       // BatchSpanProcessor Configurations
@@ -69,7 +69,7 @@ const startOtelInstrumentation = () => {
       propagators: [
         new W3CBaggagePropagator(),
         new W3CTraceContextPropagator(),
-        new B3Propagator(),
+        // new B3Propagator(),
       ],
     }),
   });
