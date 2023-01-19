@@ -15,6 +15,7 @@ import {
 import { DocumentLoadInstrumentation } from "@opentelemetry/instrumentation-document-load";
 import { UserInteractionInstrumentation } from "@opentelemetry/instrumentation-user-interaction";
 import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xml-http-request";
+import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch"
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 
 //exporters
@@ -69,7 +70,7 @@ const startOtelInstrumentation = () => {
       propagators: [
         new W3CBaggagePropagator(),
         new W3CTraceContextPropagator(),
-        // new B3Propagator(),
+        new B3Propagator(),
       ],
     }),
   });
@@ -88,10 +89,15 @@ const startOtelInstrumentation = () => {
         ignoreUrls: ["/localhost:8081/sockjs-node"],
         clearTimingResources: true,
         propagateTraceHeaderCorsUrls: [
-          "http://localhost:8080",
-          "http://3.230.230.121",
+          /http:\/\/localhost:\d+\.*/
         ],
       }),
+      // new FetchInstrumentation({
+      //   clearTimingResources: true,
+      //   propagateTraceHeaderCorsUrls: [
+      //     /http:\/\/localhost:\d+\.*/
+      //   ]
+      // })
     ],
   });
 };
