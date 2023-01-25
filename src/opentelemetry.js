@@ -78,6 +78,7 @@ const startOtelInstrumentation = () => {
           /http:\/\/localhost:\d+\.*/,
           // matches URL of pattern =>  "http://<ip>/v1/api/anything" OR "http://<ip>/api/anything"
           /http:\/\/13\.235\.117\.14\/?\w?\d?\/api\/\w+\.*/, 
+          /http:\/\/3\.230\.230\.121\/?\w?\d?\/api\/\w+\.*/, 
         ],
       }),
       new UserInteractionInstrumentation({eventNames: ["click","load",
