@@ -9,7 +9,7 @@ import { Toast } from 'primereact/toast';
  
 const Tutorial = props => {
   const toast = useRef(null);
-  window.newrelic.setPageViewName('Tutorial->View');
+  //window.newrelic.setPageViewName('Tutorial->View');
 
   const { id }= useParams();
   let navigate = useNavigate();
