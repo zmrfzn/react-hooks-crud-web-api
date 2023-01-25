@@ -1,11 +1,9 @@
 import { WebTracerProvider } from "@opentelemetry/sdk-trace-web";
 import { ZoneContextManager } from "@opentelemetry/context-zone";
-import * as otelApi from "@opentelemetry/api";
+
 
 import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
-
-import { B3Propagator } from "@opentelemetry/propagator-b3";
 import {
   CompositePropagator,
   W3CBaggagePropagator,
@@ -15,7 +13,6 @@ import {
 import { DocumentLoadInstrumentation } from "@opentelemetry/instrumentation-document-load";
 import { UserInteractionInstrumentation } from "@opentelemetry/instrumentation-user-interaction";
 import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xml-http-request";
-import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch"
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 
 //exporters
@@ -83,12 +80,10 @@ const startOtelInstrumentation = () => {
           /http:\/\/localhost:\d+\.*/
         ],
       }),
-      // new FetchInstrumentation({
-      //   clearTimingResources: true,
-      //   propagateTraceHeaderCorsUrls: [
-      //     /http:\/\/localhost:\d+\.*/
-      //   ]
-      // })
+      new UserInteractionInstrumentation({eventNames: ["click","load",
+      "loadeddata",
+      "loadedmetadata",
+      "loadstart","error"]})
     ],
   });
 };
