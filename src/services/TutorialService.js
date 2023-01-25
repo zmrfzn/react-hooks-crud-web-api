@@ -22,6 +22,12 @@ const getAll = () => {
   return http.get("/tutorials");
 };
 
+const getCategories = async () => {
+  const response = await http.get('/tutorials/categories')
+  localStorage.setItem('categories', JSON.stringify(response.data));
+  return response.data;
+}
+
 const get = id => {
   return http.get(`/tutorials/${id}`);
 };
@@ -53,6 +59,7 @@ const findAllPublished = () => {
 const TutorialService = {
   getAll,
   get,
+  getCategories,
   create,
   update,
   remove,
