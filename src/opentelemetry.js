@@ -23,7 +23,8 @@ import {
 } from "@opentelemetry/sdk-trace-base";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 
-const collectorString = "https://otlp.nr-data.net:4318/v1/traces";
+const collectorString = `${process.env.REACT_APP_OTLP_URL}`;
+
 const provider = new WebTracerProvider({
 resource: new Resource({
   [SemanticResourceAttributes.SERVICE_NAME]: "react-tutorials-otel",
@@ -36,10 +37,7 @@ provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
 provider.addSpanProcessor(
 new BatchSpanProcessor(
   new OTLPTraceExporter({
-    url: collectorString || "http://localhost:4318/v1/traces",
-    headers: {
-      "api-key": "f5644626eef13f26d27746c6e381555ef9f9NRAL",
-    },
+    url: collectorString || "http://localhost:4318/v1/traces"
   }),
    //BatchSpanProcessor Configurations
     {
