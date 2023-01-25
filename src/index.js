@@ -10,9 +10,9 @@ import packageJSON from './../package.json'
 
 // OTEL
 import { startOtelInstrumentation } from './opentelemetry';
-import { autoOtelTracer } from './auto-opentelemetry';
+// import { autoOtelTracer } from './auto-opentelemetry';
 
-const OTEL_NR_ENDPOINT = 'https://otlp.nr-data.net:4318/v1/traces'
+// const OTEL_NR_ENDPOINT = 'https://otlp.nr-data.net:4318/v1/traces'
 
 // window.newrelic.addRelease('App Version',packageJSON.version);
 

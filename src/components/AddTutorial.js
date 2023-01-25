@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TutorialDataService from "../services/TutorialService";
+import { Dropdown } from 'primereact/dropdown';
+import { Link } from "react-router-dom";
 
 const AddTutorial = () => {
   // window.newrelic.setPageViewName('Add New');
@@ -7,35 +9,53 @@ const AddTutorial = () => {
   const initialTutorialState = {
     id: null,
     title: "",
+    category: -1,
     description: "",
-    published: false
+    published: false,
   };
   const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setselectedCategory] = useState(null);
 
-  const handleInputChange = event => {
+  useEffect(() => {
+    TutorialDataService.getCategories()
+      .then((response) => {
+        setCategories(response);
+      })
+      .catch((e) => console.error(e.message));
+  }, []);
+
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setTutorial({ ...tutorial, [name]: value });
   };
 
+  const onCategoryChange = (event) => {
+    setselectedCategory(event.value);
+    setTutorial({...tutorial, 'category':event.value.id})
+  }
+
   const saveTutorial = () => {
     var data = {
       title: tutorial.title,
-      description: tutorial.description
+      description: tutorial.description,
+      category: tutorial.category
     };
-
+    
     TutorialDataService.create(data)
-      .then(response => {
+      .then((response) => {
         setTutorial({
           id: response.data.id,
           title: response.data.title,
           description: response.data.description,
-          published: response.data.published
+          category: response.data.category,
+          published: response.data.published,
         });
         setSubmitted(true);
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -68,6 +88,12 @@ const AddTutorial = () => {
               name="title"
             />
           </div>
+          <div className="form-group">
+            {/* <label htmlFor="category">Categories</label> */}
+            <Dropdown value={selectedCategory} options={categories} onChange={onCategoryChange} optionLabel="category" name="category" placeholder="Categories" />
+
+            </div>
+
 
           <div className="form-group">
             <label htmlFor="description">Description</label>
@@ -82,8 +108,14 @@ const AddTutorial = () => {
             />
           </div>
 
-          <button onClick={saveTutorial} className="btn btn-success">
+          <button onClick={saveTutorial} className="btn btn-success btn-block">
             Submit
+          </button>
+
+          <button className="btn btn-outline-secondary btn-block mt-2">
+          <Link to={"/"} className="nav-link">
+              cancel
+            </Link> 
           </button>
         </div>
       )}
