@@ -3,12 +3,7 @@
 import TutorialService from "./TutorialService";
 
 const mapCategories = async (tutorials) => {
-  let categories;
-  if (!localStorage.getItem("categories")) {
-    categories = await TutorialService.getCategories();
-  } else {
-    categories = JSON.parse(localStorage.getItem("categories"));
-  }
+  let categories = await getCategoriesFromCache()
 
   const updatedTutorials = tutorials.map((f) => {
     if (!!f.category) {
@@ -21,4 +16,41 @@ const mapCategories = async (tutorials) => {
   return updatedTutorials;
 };
 
-export default mapCategories;
+const setCategories = async (data) => {
+  console.log(`setting cache`);
+
+  const expiry = Date.now() + 9600;
+  const cache = {
+    "expiry": expiry,
+    "data": JSON.stringify(data)
+  }
+  localStorage.setItem('categories', JSON.stringify(cache));
+
+}
+const getCategoriesFromCache = async () => {
+  console.log(`getting cache`);
+
+  const item = JSON.parse(localStorage.getItem('categories'));
+  return JSON.parse(item.data);
+}
+
+const isCategoriesValid = async () => {
+  const item = JSON.parse(localStorage.getItem('categories'));
+
+  if(!!item && Date.now() > item.expiry ) {
+    console.log(`invalid ${item}`);
+    return true;
+  }
+  else { 
+    console.log(`valid ${item}`);
+    return false;
+  }
+} 
+
+
+export {
+  mapCategories,
+  setCategories,
+  getCategoriesFromCache,
+  isCategoriesValid
+} ;

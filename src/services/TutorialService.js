@@ -1,13 +1,23 @@
 import http from "../http-common";
+import { getCategoriesFromCache, isCategoriesValid, setCategories } from "./Util";
 
 const getAll = () => {
   return http.get("/tutorials");
 };
 
 const getCategories = async () => {
-  const response = await http.get('/tutorials/categories')
-  localStorage.setItem('categories', JSON.stringify(response.data));
-  return response.data;
+
+  console.log(isCategoriesValid())
+  let data;
+  if(!await isCategoriesValid()) {
+    const response = await http.get('/tutorials/categories')
+    setCategories(response.data);
+    return response.data;
+  }
+  else {
+    data = await getCategoriesFromCache();
+    return data;
+  }
 }
 
 const get = id => {
