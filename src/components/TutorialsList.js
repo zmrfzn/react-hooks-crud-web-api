@@ -7,7 +7,7 @@ import { Chip } from 'primereact/chip';
 import { Divider } from 'primereact/divider';
 
 import { Toast } from 'primereact/toast';
-import mapCategories from "../services/Util";
+import {mapCategories} from "../services/Util";
 
 
 
@@ -39,7 +39,7 @@ const TutorialsList = () => {
   };
 
   useEffect(() => {
-    TutorialDataService.getCategories();
+    
     retrieveTutorials();
     console.log('useEffect()');
        // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,7 +50,8 @@ const TutorialsList = () => {
     setSearchTitle(searchTitle);
   };
 
-  const retrieveTutorials = () => {
+  const retrieveTutorials = async () => {
+    await TutorialDataService.getCategories();
     TutorialDataService.getAll()
       .then(response => {
         mapCategories(response.data).then(data => {

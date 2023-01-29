@@ -1,31 +1,23 @@
 import http from "../http-common";
-import * as otelAPI from "@opentelemetry/api";
-
-// const otel = new otelAPI();
-function traceParentIDGenerator() {
-  if ( typeof(otelAPI) !== "undefined" && otelAPI !== null ) {
-    let current_span = otelAPI.trace.getSpan(otelAPI.context.active());
-
-    let trace_id = current_span.spanContext().traceId;
-    let span_id = current_span.spanContext().spanId;
-    let trace_flags = current_span.spanContext().traceFlags;
-
-    return `00-${trace_id}-${span_id}-${trace_flags}`;
-  } else {
-    return `00-ab42124a3c573678d4d8b21ba52df3bf-d21f7bc17caa5aba-01`;
-  }
-}
-
-{/* <meta name="traceparent" content="00-ab42124a3c573678d4d8b21ba52df3bf-d21f7bc17caa5aba-01"></meta> */}
+import { getCategoriesFromCache, isCategoriesValid, setCategories } from "./Util";
 
 const getAll = () => {
   return http.get("/tutorials");
 };
 
 const getCategories = async () => {
-  const response = await http.get('/tutorials/categories')
-  localStorage.setItem('categories', JSON.stringify(response.data));
-  return response.data;
+
+  console.log(isCategoriesValid())
+  let data;
+  if(!await isCategoriesValid()) {
+    const response = await http.get('/tutorials/categories')
+    setCategories(response.data);
+    return response.data;
+  }
+  else {
+    data = await getCategoriesFromCache();
+    return data;
+  }
 }
 
 const get = id => {

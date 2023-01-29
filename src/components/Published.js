@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import TutorialDataService from "../services/TutorialService";
-import mapCategories from '../services/Util';
+import {mapCategories} from '../services/Util';
 
 function Published() {
     // window.newrelic.setPageViewName('Published');
