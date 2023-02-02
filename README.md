@@ -1,12 +1,4 @@
-# React.js Hooks CRUD App with Axios & Web API example
-Build a React Hooks CRUD Application to consume Web API with Axios, display and modify data with Router & Bootstrap.
-- Each Tutorial has id, title, description, published status.
-- We can create, retrieve, update, delete Tutorials.
-- There is a Search bar for finding Tutorials by title.
-
-![react-hooks-crud-axios-api-example](react-hooks-crud-axios-api-example.png)
-
-
+# React.js Hooks CRUD App with Axios & RESTs API example
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Set port
