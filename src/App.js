@@ -24,13 +24,13 @@ function App() {
   }
 
 
-  window.newrelic.setPageViewName('Home');
+  // window.newrelic.setPageViewName('Home');
 
   const location = useLocation();
 
   useEffect(() => {
     console.log(`Entered anon -> ${window.newrelic}`)
-    window.newrelic.addPageAction('navigation', { path: location.pathname })
+    // window.newrelic.addPageAction('navigation', { path: location.pathname })
 
   }, [location]);
 

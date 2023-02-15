@@ -12,7 +12,7 @@ import {mapCategories} from "../services/Util";
 
 
 const TutorialsList = () => {
-  window.newrelic.setPageViewName('Tutorials');
+  // window.newrelic.setPageViewName('Tutorials');
 
   const [tutorials, setTutorials] = useState([]);
   const [pagedTutorials, setPagedTutorials] = useState([]);

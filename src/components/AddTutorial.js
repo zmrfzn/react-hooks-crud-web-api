@@ -4,7 +4,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Link } from "react-router-dom";
 
 const AddTutorial = () => {
-  window.newrelic.setPageViewName("Add New");
+  // window.newrelic.setPageViewName("Add New");
 
   const initialTutorialState = {
     id: null,

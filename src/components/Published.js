@@ -4,7 +4,7 @@ import TutorialDataService from "../services/TutorialService";
 import {mapCategories} from '../services/Util';
 
 function Published() {
-    window.newrelic.setPageViewName('Published');
+    // window.newrelic.setPageViewName('Published');
 
     const [tutorials, setTutorials] = useState(null);
 
