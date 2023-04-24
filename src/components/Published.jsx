@@ -42,6 +42,7 @@ function Published() {
             })
     }
     return (
+        <>
         <div className="list row">
             <div className="table-responsive">
                 <table className="table table-inverse table-responsive table-bordered">
@@ -76,6 +77,7 @@ function Published() {
                 </table>
             </div>
         </div>
+        </>
     )
 }
 
