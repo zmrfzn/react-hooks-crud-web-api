@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 
+import viteLogo from '/vite.svg'
+import './App.css'
+
 //stylesheets
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
 import "primereact/resources/primereact.min.css";                  //core css
 import "primeicons/primeicons.css";  
 
+//components 
+import TutorialsList from "./components/TutorialsList";
 import AddTutorial from "./components/AddTutorial";
 import Tutorial from "./components/Tutorial";
-import TutorialsList from "./components/TutorialsList";
 import Published from "./components/Published";
 import PageNotFound from "./components/PageNotFound";
 
@@ -35,10 +38,11 @@ function App() {
   }, [location]);
 
   return (
-    <div>
+    <>
+  <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/" className="navbar-brand">
-          <img src="/react.png" alt="React logo" height="40" />
+        <img src={viteLogo} alt="Vite logo" height={40}/>
           <span className="pl-1">React App</span>
         </a>
         <div className="navbar-nav mr-auto">
@@ -72,7 +76,8 @@ function App() {
         </Routes>
       </div>
     </div>
-  );
+    </>
+  )
 }
 
-export default App;
+export default App
