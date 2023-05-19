@@ -7,8 +7,6 @@ import './index.css'
 
 import packageJSON from './../package.json'
 
-window.newrelic.addRelease('App Version',packageJSON.version);
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <App />
